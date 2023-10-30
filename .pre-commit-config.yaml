@@ -1,0 +1,38 @@
+default_stages: [pre-commit]
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: debug-statements
+      - id: check-ast
+      - id: check-case-conflict
+      - id: check-builtin-literals
+      - id: check-docstring-first
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+      - id: trailing-whitespace
+      - id: requirements-txt-fixer
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v2.4.0
+    hooks:
+      - id: conventional-pre-commit
+        name: conventional-pre-commit (commit message)
+        stages: [commit-msg]
+        args: ["build", "ci", "docs", "feat", "fix", "perf", "refactor", "test"]
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v2.7.1
+    hooks:
+      - id: prettier
+        name: prettier (YAML, Markdown, JSON)
+        args:
+          - --print-width=100
+          - --prose-wrap=always
+          - --tab-width=2
+  - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
+    rev: v2.10.0
+    hooks:
+      - id: pretty-format-toml
+        name: pretty-format-toml (TOML)
+        args: [--autofix]
