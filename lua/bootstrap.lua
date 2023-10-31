@@ -1,4 +1,4 @@
--- Module used to bootstrap the configuration of gruvim
+-- Module used to bootstrap the configuration of neos
 local M = {}
 
 -- Minimum neovim version supported by the configuration
