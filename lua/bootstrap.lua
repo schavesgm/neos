@@ -43,6 +43,9 @@ function M:init(path_to_config)
     _assert_miminum_nvim_version()
     _bootstrap_lazy_nvim()
 
+    require("core.options"):init(require("defaults.options"))
+
+    -- Set global configuration table
     _G.configuration = {
         path_to_config = path_to_config,
     }
