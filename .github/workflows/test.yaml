@@ -1,0 +1,39 @@
+name: 🧪 Test code
+on: push
+
+env:
+  MINIMUM_VERSION: 0.9.0
+
+jobs:
+  get-nvim-releases:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.versions.outputs.matrix }}
+    steps:
+      - name: 📜 Checkout configuration
+        uses: actions/checkout@v3
+      - name: Select NeoVim releases
+        id: versions
+        run: echo "matrix=$(bash scripts/get_versions.sh $MINIMUM_VERSION})" >> $GITHUB_OUTPUT
+  test-configuration:
+    runs-on: ubuntu-latest
+    needs: get-nvim-releases
+    strategy:
+      matrix: ${{ fromJson(needs.get-nvim-releases.outputs.matrix) }}
+    steps:
+      - name: 📜 Checkout configuration
+        uses: actions/checkout@v3
+      - name: Install NeoVim
+        uses: AnimMouse/setup-appimage@v1
+        with:
+          name: neovim
+          url:
+            https://github.com/neovim/neovim/releases/download/${{ matrix.release }}/nvim.appimage
+      - name: Test configuration
+        run: |
+          neovim -u init.lua -V1output.log +:q
+          CONTAINS_ERROR=$(grep -q "Error detected while processing" output.log; echo $?)
+          rm ./output.log
+          if [ "${CONTAINS_ERROR}" -eq "0" ]; then
+            exit 1
+          fi

@@ -13,26 +13,28 @@ local function _assert_miminum_nvim_version()
             MINIMUM_NVIM_VERSION
         )
         vim.notify(error_message, vim.log.levels.WARN)
-        vim.wait(5000, function() return false end)
-        vim.cmd "cquit"
+        vim.wait(5000, function()
+            return false
+        end)
+        vim.cmd("cquit")
     end
 end
 
 ---Bootstrap lazy-nvim plugin manager: https://github.com/folke/lazy.nvim
 local function _bootstrap_lazy_nvim()
-	local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-	if not vim.loop.fs_stat(lazypath) then
+    local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+    if not vim.loop.fs_stat(lazypath) then
         vim.notify("🥾 Bootstrapping lazy plugin manager")
-	    vim.fn.system({
-	        "git",
-	        "clone",
-	        "--filter=blob:none",
-	        "--single-branch",
-	        "https://github.com/folke/lazy.nvim.git",
-	        lazypath,
-	    })
-	end
-	vim.opt.runtimepath:prepend(lazypath)
+        vim.fn.system({
+            "git",
+            "clone",
+            "--filter=blob:none",
+            "--single-branch",
+            "https://github.com/folke/lazy.nvim.git",
+            lazypath,
+        })
+    end
+    vim.opt.runtimepath:prepend(lazypath)
 end
 
 ---Initialise the configuration.
@@ -42,7 +44,7 @@ function M:init(path_to_config)
     _bootstrap_lazy_nvim()
 
     _G.configuration = {
-        path_to_config = path_to_config
+        path_to_config = path_to_config,
     }
 end
 
