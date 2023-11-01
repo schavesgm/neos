@@ -43,17 +43,18 @@ function M:init(path_to_config)
     _assert_miminum_nvim_version()
     _bootstrap_lazy_nvim()
 
-    require("core.options"):init(require("defaults.options"))
-
-    -- Set global configuration table
-    _G.configuration = {
+    -- Set global configuration table with some functionality
+    _G.neos = {
         path_to_config = path_to_config,
+        options = require("core.options"),
     }
+
+    _G.neos.options:init(require("defaults.options"))
 end
 
 ---Reload the neovim configuration
 function M:reload()
-    M:init(_G.configuration.path_to_config)
+    M:init(_G.neos.path_to_config)
 end
 
 return M
