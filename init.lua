@@ -6,5 +6,8 @@ if not vim.tbl_contains(vim.opt.rtp:get(), path_to_config) then
     vim.opt.rtp:append(path_to_config)
 end
 
+-- Load the default configuration table
+local default_table = require("defaults")
+
 -- Bootstrap configuration
-require("bootstrap"):init(path_to_config)
+require("bootstrap"):init(path_to_config, default_table)
