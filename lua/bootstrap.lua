@@ -12,11 +12,7 @@ local function _assert_miminum_nvim_version()
             "Please upgrade your Neovim base installation. Requires v%s+",
             MINIMUM_NVIM_VERSION
         )
-        vim.notify(error_message, vim.log.levels.WARN)
-        vim.wait(5000, function()
-            return false
-        end)
-        vim.cmd("cquit")
+        vim.notify(error_message, vim.log.levels.ERROR)
     end
 end
 
@@ -45,16 +41,22 @@ function M:init(path_to_config, defaults_table)
     _bootstrap_lazy_nvim()
 
     -- Set global configuration table with some functionality
-    local base_config = {
+    _G.neos = {
         path_to_config = path_to_config,
         defaults = defaults_table,
+        base = require("core.base"),
+        options = require("core.options"),
+        keymaps = require("core.keymaps"),
+        autocmds = require("core.autocmds"),
     }
-    _G.neos = vim.tbl_deep_extend("error", base_config, require("core"))
 
     -- Set all options from the defaults table
     for module_name, defaults in pairs(_G.neos.defaults) do
         _G.neos[module_name]:init(defaults)
     end
+
+    -- Initialise all plugins
+    _G.neos.base.safely_load("lazy", vim.log.levels.ERROR).setup("plugins")
 end
 
 ---Reload the neovim configuration
