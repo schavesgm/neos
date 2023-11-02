@@ -14,4 +14,16 @@ function M.safely_load(module_name, level)
     return module
 end
 
+---Set a highlight value. This function is just a wrapper over nvim_set_hl
+---@param namespace number #Namespace to set the highlight. A value of 0 means all
+---@param name string #Name of the highlight group to set
+---@param bg_colour string|nil #Background colour of the highlight group
+---@param fg_colour string|nil #Foreground colour of the highlight group
+---@param opts_table table|nil #Other options to set in the table
+function M.set_hl(namespace, name, bg_colour, fg_colour, opts_table)
+    local values_table = { bg = bg_colour, fg = fg_colour }
+    values_table = vim.tbl_extend("force", values_table, opts_table or {})
+    vim.api.nvim_set_hl(namespace, name, values_table)
+end
+
 return M
