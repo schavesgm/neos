@@ -34,9 +34,10 @@ local function _bootstrap_lazy_nvim()
 end
 
 ---Initialise the configuration.
----@param path_to_config string; path to configuration to be saved as global
----@param defaults_table table; table containing the defaults configuration for options, keymaps...
-function M:init(path_to_config, defaults_table)
+---@param path_to_config string #Path to configuration to be saved as global
+---@param defaults_table table  #Table containing the defaults configuration for options, keymaps...
+---@param colourscheme string #Colourscheme to use in the system
+function M:init(path_to_config, defaults_table, colourscheme)
     _assert_miminum_nvim_version()
     _bootstrap_lazy_nvim()
 
@@ -44,6 +45,7 @@ function M:init(path_to_config, defaults_table)
     _G.neos = {
         path_to_config = path_to_config,
         defaults = defaults_table,
+        colourscheme = colourscheme,
         base = require("core.base"),
         options = require("core.options"),
         keymaps = require("core.keymaps"),
@@ -57,11 +59,9 @@ function M:init(path_to_config, defaults_table)
 
     -- Initialise all plugins
     _G.neos.base.safely_load("lazy", vim.log.levels.ERROR).setup("plugins")
-end
 
----Reload the neovim configuration
-function M:reload()
-    M:init(_G.neos.path_to_config, _G.neos.defaults)
+    -- Set the colourscheme
+    vim.cmd(string.format("colorscheme %s", colourscheme))
 end
 
 return M
