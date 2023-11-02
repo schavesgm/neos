@@ -1,17 +1,59 @@
 -- Module containing functionality to set options
 local M = {}
 
+---Set all options in a table using "set option=value"
+---@param set_option_table table #Table of options to set
+local function _set_options(set_option_table)
+    for key, value in pairs(set_option_table) do
+        vim.opt[key] = value
+    end
+end
+
+---Append to all options in a table using "set option+=value"
+---@param append_option_table table #Table of options to set
+local function _append_options(append_option_table)
+    for key, values_to_append in pairs(append_option_table) do
+        for _, value in ipairs(values_to_append) do
+            vim.opt[key]:append(value)
+        end
+    end
+end
+
+---Prepend to all options in a table using "set option^=value"
+---@param prepend_option_table table #Table of options to set
+local function _prepend_options(prepend_option_table)
+    for key, values_to_prepend in pairs(prepend_option_table) do
+        for _, value in ipairs(values_to_prepend) do
+            vim.opt[key]:prepend(value)
+        end
+    end
+end
+
+---Remove to all options in a table using "set option-=value"
+---@param remove_option_table table #Table of options to set
+local function _remove_options(remove_option_table)
+    for key, values_to_remove in pairs(remove_option_table) do
+        for _, value in ipairs(values_to_remove) do
+            vim.opt[key]:remove(value)
+        end
+    end
+end
+
+local name_to_action = {
+    set = _set_options,
+    append = _append_options,
+    prepend = _prepend_options,
+    remove = _remove_options,
+}
+
 ---Set a table containing all the options of the system
 ---@param options_table table # Table containing key-value neovim-options
 function M.set_options(options_table)
-    for key, value in pairs(options_table) do
-        vim.opt[key] = value
+    for _, action_name in ipairs({ "set", "append", "prepend", "remove" }) do
+        if options_table[action_name] ~= nil then
+            name_to_action[action_name](options_table[action_name])
+        end
     end
-
-    -- Some other default settings
-    vim.opt.shortmess:append("c")
-    vim.opt.shortmess:append("I")
-    vim.opt.whichwrap:append("<,>,[,],h,l")
 end
 
 -- Load default options without user interface
