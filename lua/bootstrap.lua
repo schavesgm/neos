@@ -59,9 +59,6 @@ function M:init(path_to_config, defaults_table, colourscheme)
 
     -- Initialise all plugins
     _G.neos.base.safely_load("lazy", vim.log.levels.ERROR).setup("plugins")
-
-    -- Set the colourscheme
-    vim.cmd(string.format("colorscheme %s", colourscheme))
 end
 
 return M

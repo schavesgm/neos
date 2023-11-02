@@ -10,4 +10,4 @@ end
 local default_table = require("defaults")
 
 -- Bootstrap configuration
-require("bootstrap"):init(path_to_config, default_table, "default")
+require("bootstrap"):init(path_to_config, default_table, "kanagawa")
