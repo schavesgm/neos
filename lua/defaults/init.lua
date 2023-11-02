@@ -2,4 +2,5 @@
 return {
     options = require("defaults.options"),
     keymaps = require("defaults.keymaps"),
+    autocmds = require("defaults.autocmds"),
 }
