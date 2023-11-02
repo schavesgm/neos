@@ -45,12 +45,11 @@ function M:init(path_to_config, defaults_table)
     _bootstrap_lazy_nvim()
 
     -- Set global configuration table with some functionality
-    _G.neos = {
+    local base_config = {
         path_to_config = path_to_config,
         defaults = defaults_table,
-        options = require("core.options"),
-        keymaps = require("core.keymaps"),
     }
+    _G.neos = vim.tbl_deep_extend("error", base_config, require("core"))
 
     -- Set all options from the defaults table
     for module_name, defaults in pairs(_G.neos.defaults) do
