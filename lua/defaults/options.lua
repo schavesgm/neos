@@ -75,6 +75,7 @@ return {
     append = {
         shortmess = { "c", "I" },
         whichwrap = { "<", ">", "[", "]", "h", "l" },
+        clipboard = { "unnamedplus" },
     },
     -- Options to prepend. Equivalent to vim's :set option^=value
     prepend = {},
