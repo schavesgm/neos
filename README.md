@@ -1,5 +1,3 @@
-# NeoVim configuration
-
 <p align="center">
     <a href="https://github.com/pre-commit/pre-commit">
         <img
@@ -23,3 +21,5 @@
         >
     </a>
 </p>
+
+# ⏳ Neos
