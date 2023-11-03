@@ -24,8 +24,8 @@ function M.init()
 end
 
 function M.config()
-    local is_present, telescope = _G.neos.base.safely_load("telescope", vim.log.levels.WARN)
-    if not is_present then
+    local telescope = _G.neos.base.safely_load("telescope", vim.log.levels.WARN)
+    if not telescope then
         return
     end
 

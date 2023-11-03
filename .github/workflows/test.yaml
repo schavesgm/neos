@@ -31,9 +31,9 @@ jobs:
             https://github.com/neovim/neovim/releases/download/${{ matrix.release }}/nvim.appimage
       - name: Test configuration
         run: |
-          neovim -u init.lua -V1output.log +:q
-          CONTAINS_ERROR=$(grep -q "Error detected while processing" output.log; echo $?)
-          rm ./output.log
-          if [ "${CONTAINS_ERROR}" -eq "0" ]; then
-            exit 1
-          fi
+          # Move configuration to .config/nvim
+          mkdir -p ~/.config/nvim
+          cp -r ./init.lua lua ~/.config/nvim
+
+          # Run test on configuration
+          bash scripts/check_config.sh neovim

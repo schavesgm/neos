@@ -6,7 +6,7 @@ local M = {
 }
 
 function M.config()
-    local treesitter = _G.neos.base.safely_load("nvim-treesitter", vim.log.levels.WARN)
+    local treesitter = _G.neos.base.safely_load("nvim-treesitter.configs", vim.log.levels.WARN)
     if treesitter == nil then
         return
     end
