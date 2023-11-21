@@ -50,6 +50,7 @@ function M:init(path_to_config, defaults_table, colourscheme)
         options = require("core.options"),
         keymaps = require("core.keymaps"),
         autocmds = require("core.autocmds"),
+        commands = require("core.commands"),
     }
 
     -- Set all options from the defaults table
