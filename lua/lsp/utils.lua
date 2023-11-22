@@ -9,7 +9,8 @@ local function lsp_highlight_document(client)
                     autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
                 augroup END
             ]],
-            false)
+            false
+        )
     end
 end
 
@@ -19,19 +20,23 @@ local function lsp_keymaps(bufnr)
     local opts = { noremap = true, silent = true, buffer = bufnr }
 
     -- Set the buffer definitions
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', 'gl', vim.diagnostic.open_float, opts)
-    vim.keymap.set('n', 'H', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', '<C-h>', vim.lsp.buf.signature_help, opts)
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+    vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+    vim.keymap.set("n", "gl", vim.diagnostic.open_float, opts)
+    vim.keymap.set("n", "H", vim.lsp.buf.hover, opts)
+    vim.keymap.set("n", "<C-h>", vim.lsp.buf.signature_help, opts)
 
-    vim.keymap.set('n', ']d', function() vim.diagnostic.goto_next({ border = "rounded" }) end, opts)
-    vim.keymap.set('n', '[d', function() vim.diagnostic.goto_prev({ border = "rounded" }) end, opts)
+    vim.keymap.set("n", "]d", function()
+        vim.diagnostic.goto_next({ border = "rounded" })
+    end, opts)
+    vim.keymap.set("n", "[d", function()
+        vim.diagnostic.goto_prev({ border = "rounded" })
+    end, opts)
 
-    vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
-    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+    vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, opts)
+    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 
     -- Code action mapping
     local code_action_callback
@@ -40,20 +45,18 @@ local function lsp_keymaps(bufnr)
     else
         code_action_callback = vim.lsp.buf.code_action
     end
-    vim.keymap.set('n', '<leader>a', code_action_callback, opts)
+    vim.keymap.set("n", "<leader>a", code_action_callback, opts)
 
-    vim.api.nvim_create_user_command(
-        "CodeLens",
-        function()
-            vim.lsp.codelens.refresh()
-            vim.lsp.codelens.get()
-        end,
-        {}
-    )
-    vim.api.nvim_create_user_command("CodeLensRun", function() vim.lsp.codelens.run() end, {})
+    vim.api.nvim_create_user_command("CodeLens", function()
+        vim.lsp.codelens.refresh()
+        vim.lsp.codelens.get()
+    end, {})
+    vim.api.nvim_create_user_command("CodeLensRun", function()
+        vim.lsp.codelens.run()
+    end, {})
 end
 
 return {
     lsp_highlight_document = lsp_highlight_document,
-    lsp_keymaps            = lsp_keymaps,
+    lsp_keymaps = lsp_keymaps,
 }

@@ -59,12 +59,12 @@ function M.setup()
         severity_sort = true,
         float = {
             focusable = false,
-            style     = "minimal",
-            border    = "rounded",
-            source    = "if_many",
-            header    = "",
-            prefix    = "",
-            format    = function(diagnostic)
+            style = "minimal",
+            border = "rounded",
+            source = "if_many",
+            header = "",
+            prefix = "",
+            format = function(diagnostic)
                 local message = " · " .. severity_emojis[diagnostic.severity]
                 message = " " .. ({ "ERROR", "WARN", "INFO", "HINT" })[diagnostic.severity] .. ": "
                 local data = diagnostic.message
@@ -101,7 +101,7 @@ function M.setup()
         deprecatedSupport = true,
         commitCharactersSupport = true,
         tagSupport = {
-            valueSet = { 1 }
+            valueSet = { 1 },
         },
         resolveSupport = {
             properties = {

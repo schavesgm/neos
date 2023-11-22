@@ -22,15 +22,15 @@ return {
                 pycodestyle = {
                     enabled = true,
                     exclude = { "__init__.py" },
-                    maxLineLength = 100
+                    maxLineLength = 100,
                 },
 
                 -- PyDocStyle
                 pydocstyle = { enabled = true, convention = "google" },
 
                 -- PyFlakes
-                pyflakes = { enabled = true }
-            }
-        }
-    }
+                pyflakes = { enabled = true },
+            },
+        },
+    },
 }
