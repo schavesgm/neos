@@ -1,5 +1,5 @@
 local M = {
-    "nvim-tree/nvim-web-devicons"
+    "nvim-tree/nvim-web-devicons",
 }
 
 function M.config()
@@ -7,6 +7,7 @@ function M.config()
     if not devicons then
         return
     end
+
     devicons.setup()
 end
 

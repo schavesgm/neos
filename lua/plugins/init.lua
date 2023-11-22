@@ -11,7 +11,7 @@ return {
     },
     {
         "hrsh7th/cmp-nvim-lua",
-        dependencies = "LuaSnip"
+        dependencies = "LuaSnip",
     },
     {
         "hrsh7th/cmp-nvim-lsp",
@@ -19,7 +19,7 @@ return {
     },
     {
         "hrsh7th/cmp-buffer",
-        dependencies = "LuaSnip"
+        dependencies = "LuaSnip",
     },
     {
         "hrsh7th/cmp-path",
@@ -27,6 +27,6 @@ return {
     },
     {
         "kdheepak/cmp-latex-symbols",
-        dependencies = "LuaSnip"
+        dependencies = "LuaSnip",
     },
 }

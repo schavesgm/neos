@@ -1,12 +1,14 @@
 local M = {
     "williamboman/mason.nvim",
-    cmd = {"Mason", "MasonInstall", "MasonLog", "MasonUninstall", "MasonUninstallAll"},
+    cmd = { "Mason", "MasonInstall", "MasonLog", "MasonUninstall", "MasonUninstallAll" },
 }
 
 -- Configure the plugin
 function M.config()
     local mason = _G.neos.base.safely_load("mason", vim.log.levels.WARN)
-    if not mason then return end
+    if not mason then
+        return
+    end
 
     mason.setup({
         PATH = "prepend",

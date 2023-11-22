@@ -7,14 +7,14 @@ local M = {
 ---@param hl_name string; highlight name to apply in borders
 local function border(hl_name)
     return {
-        {"╭", hl_name},
-        {"─", hl_name},
-        {"╮", hl_name},
-        {"│", hl_name},
-        {"╯", hl_name},
-        {"─", hl_name},
-        {"╰", hl_name},
-        {"│", hl_name},
+        { "╭", hl_name },
+        { "─", hl_name },
+        { "╮", hl_name },
+        { "│", hl_name },
+        { "╯", hl_name },
+        { "─", hl_name },
+        { "╰", hl_name },
+        { "│", hl_name },
     }
 end
 
@@ -47,10 +47,11 @@ local icons = {
     TypeParameter = "",
 }
 
-
 function M.config()
     local cmp = _G.neos.base.safely_load("cmp", vim.log.levels.WARN)
-    if not cmp then return end
+    if not cmp then
+        return
+    end
 
     -- Set the correct complete options
     vim.o.completeopt = "menu,menuone,noselect"
@@ -74,17 +75,19 @@ function M.config()
             },
         },
         snippet = {
-            expand = function(args) require("luasnip").lsp_expand(args.body) end,
+            expand = function(args)
+                require("luasnip").lsp_expand(args.body)
+            end,
         },
         formatting = {
-            fields = {"kind", "abbr", "menu"},
+            fields = { "kind", "abbr", "menu" },
             format = function(entry, vim_item)
                 -- Kind icons
-                vim_item.kind = string.format('%s', icons[vim_item.kind])
+                vim_item.kind = string.format("%s", icons[vim_item.kind])
                 vim_item.menu = ({
-                    luasnip  = "[Snippet]",
-                    buffer   = "[Buffer]",
-                    path     = "[Path]",
+                    luasnip = "[Snippet]",
+                    buffer = "[Buffer]",
+                    path = "[Path]",
                     nvim_lua = "[Nvim_lua]",
                     nvim_lsp = "[LSP]",
                 })[entry.source.name]
@@ -97,55 +100,62 @@ function M.config()
             ["<C-j>"] = cmp.mapping.select_next_item(),
 
             -- Move laterally in the docs using Ctrl + {b, f}
-            ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), {"i", "c"}),
-            ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(1), {"i", "c"}),
+            ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
+            ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
 
             -- Show all possible completion options
-            ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), {"i", "c"}),
+            ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
 
             -- Disable the autocompletion engine
             ["<C-y>"] = cmp.config.disable,
 
             -- Exit the autocompletion
-            ["<C-e>"] = cmp.mapping {i = cmp.mapping.abort(), c = cmp.mapping.close(),},
+            ["<C-e>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
 
             -- Accept currently selected item
-            ["<CR>"] = cmp.mapping.confirm {select = true},
+            ["<CR>"] = cmp.mapping.confirm({ select = true }),
 
             -- Use <Tab> to select items in the autocompletion
-            ["<Tab>"] = cmp.mapping(
-                function(fallback)
-                    if cmp.visible() then
-                        cmp.select_next_item()
-                    elseif require("luasnip").expand_or_jumpable() then
-                        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
-                    else
-                        fallback()
-                    end
-                end, {"i", "s",}
-            ),
+            ["<Tab>"] = cmp.mapping(function(fallback)
+                if cmp.visible() then
+                    cmp.select_next_item()
+                elseif require("luasnip").expand_or_jumpable() then
+                    vim.fn.feedkeys(
+                        vim.api.nvim_replace_termcodes(
+                            "<Plug>luasnip-expand-or-jump",
+                            true,
+                            true,
+                            true
+                        ),
+                        ""
+                    )
+                else
+                    fallback()
+                end
+            end, { "i", "s" }),
 
             -- Use shift tab to jump to luasnip expandable items
-            ["<S-Tab>"] = cmp.mapping(
-                function(fallback)
-                    if cmp.visible() then
-                        cmp.select_prev_item()
-                    elseif require("luasnip").jumpable(-1) then
-                        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
-                    else
-                        fallback()
-                    end
-                end, {"i", "s",}
-            ),
+            ["<S-Tab>"] = cmp.mapping(function(fallback)
+                if cmp.visible() then
+                    cmp.select_prev_item()
+                elseif require("luasnip").jumpable(-1) then
+                    vim.fn.feedkeys(
+                        vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true),
+                        ""
+                    )
+                else
+                    fallback()
+                end
+            end, { "i", "s" }),
         },
         sources = {
-            {name = "luasnip"},
-            {name = "nvim_lsp"},
-            {name = "buffer"},
-            {name = "nvim_lua"},
-            {name = "path"},
-            {name = "latex_symbols"},
-            {name = "git"},
+            { name = "luasnip" },
+            { name = "nvim_lsp" },
+            { name = "buffer" },
+            { name = "nvim_lua" },
+            { name = "path" },
+            { name = "latex_symbols" },
+            { name = "git" },
         },
     })
 end

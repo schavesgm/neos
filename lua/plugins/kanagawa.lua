@@ -58,7 +58,7 @@ function M.config()
     end
 
     -- Setup kanagawa module
-    kanagawa.setup({theme="wave"})
+    kanagawa.setup({ theme = "wave" })
 end
 
 return M
