@@ -9,11 +9,10 @@ local function generate_code_link_snippet(code_encoding)
 end
 
 local entries = {
+    snippets.s("sphcode", format("``{}``", { snippets.i(1, "default") })),
     snippets.s(
-        "sphcode", format("``{}``", { snippets.i(1, "default") })
-    ),
-    snippets.s(
-        "link", format("`{} <{}>`_", {
+        "link",
+        format("`{} <{}>`_", {
             snippets.i(1, "link_text"),
             snippets.i(2, "link_url"),
         })

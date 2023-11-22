@@ -9,9 +9,7 @@ local function generate_obsidian_equation_snippet(name, environment)
     return snippets.s(
         name,
         format(
-            string.format(
-                "$$\n\\begin{{%s}}\n\t{}\n\\end{{%s}}\n$$", environment, environment
-            ),
+            string.format("$$\n\\begin{{%s}}\n\t{}\n\\end{{%s}}\n$$", environment, environment),
             { snippets.i(1, "your_maths") }
         )
     )
