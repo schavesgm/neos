@@ -1,3 +1,7 @@
+<h1 align="center">
+    ⏳ Neos
+</h1>
+
 <p align="center">
     <a href="https://github.com/pre-commit/pre-commit">
         <img
@@ -21,5 +25,3 @@
         >
     </a>
 </p>
-
-# ⏳ Neos
