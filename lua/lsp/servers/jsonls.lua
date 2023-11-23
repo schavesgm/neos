@@ -1,4 +1,6 @@
 -- Find more schemas here: https://www.schemastore.org/json/
+
+-- luacheck: ignore 631
 local schemas = {
     {
         description = "TypeScript compiler configuration file",

@@ -31,9 +31,9 @@ function M.setup()
 
     local signs = {
         { name = "DiagnosticSignError", text = severity_emojis.ERROR },
-        { name = "DiagnosticSignWarn",  text = severity_emojis.WARN },
-        { name = "DiagnosticSignHint",  text = severity_emojis.HINT },
-        { name = "DiagnosticSignInfo",  text = severity_emojis.INFO },
+        { name = "DiagnosticSignWarn", text = severity_emojis.WARN },
+        { name = "DiagnosticSignHint", text = severity_emojis.HINT },
+        { name = "DiagnosticSignInfo", text = severity_emojis.INFO },
     }
 
     for _, sign in ipairs(signs) do
@@ -65,8 +65,9 @@ function M.setup()
             header = "",
             prefix = "",
             format = function(diagnostic)
-                local message = " · " .. severity_emojis[diagnostic.severity]
-                message = " " .. ({ "ERROR", "WARN", "INFO", "HINT" })[diagnostic.severity] .. ": "
+                local message = " "
+                    .. ({ "ERROR", "WARN", "INFO", "HINT" })[diagnostic.severity]
+                    .. ": "
                 local data = diagnostic.message
                 if diagnostic.source ~= nil then
                     data = diagnostic.source .. " 🡒 " .. data
