@@ -27,7 +27,7 @@ return {
                 sign = {
                     enabled = true,
                     text = "🔥",
-                }
+                },
             })
         end,
     },
