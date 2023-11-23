@@ -27,6 +27,17 @@ function M.config()
         indent = {
             enable = true,
         },
+
+        -- External modules
+        rainbow = {
+            enable = true,
+            extended_mode = true,
+            max_file_lines = 1000,
+        },
+
+        autopairs = {
+            enable = true,
+        },
     })
 end
 
