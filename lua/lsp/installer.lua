@@ -17,6 +17,11 @@ local function on_attach(client, bufnr)
         client.server_capabilities.document_formatting = false
     end
 
+    local lsp_inlayhints = _G.neos.base.safely_load("lsp-inlayhints", vim.log.levels.WARN)
+    if lsp_inlayhints ~= nil then
+        lsp_inlayhints.on_attach(client, bufnr)
+    end
+
     -- Set some required functionalities on attach
     require("lsp.utils").lsp_highlight_document(client)
     require("lsp.utils").lsp_keymaps(bufnr)

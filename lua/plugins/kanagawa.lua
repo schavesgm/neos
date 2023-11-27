@@ -19,6 +19,7 @@ function M.init()
         set_hl(0, "DiagnosticWarn", nil, palette.springViolet1, { bold = false })
         set_hl(0, "DiagnosticInfo", nil, palette.springViolet1, { bold = false })
         set_hl(0, "DiagnosticHint", nil, palette.springViolet1, { bold = false })
+        set_hl(0, "LspInlayHint", nil, palette.springViolet1, { bold = false })
 
         -- Set a global colourscheme table to be used on other plugins
         _G.neos.palette = {
