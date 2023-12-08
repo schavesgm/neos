@@ -39,14 +39,9 @@ local function lsp_keymaps(bufnr)
     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 
     -- Code action mapping
-    local code_action_callback
-    if vim.fn.exists(":CodeActionMenu") > 0 then
-        code_action_callback = ":CodeActionMenu<Cr>"
-    else
-        code_action_callback = vim.lsp.buf.code_action
-    end
-    vim.keymap.set("n", "<leader>a", code_action_callback, opts)
+    vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, opts)
 
+    -- Code lens mappings
     vim.api.nvim_create_user_command("CodeLens", function()
         vim.lsp.codelens.refresh()
         vim.lsp.codelens.get()

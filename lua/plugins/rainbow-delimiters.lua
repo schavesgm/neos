@@ -1,6 +1,6 @@
 local M = {
     "HiPhish/rainbow-delimiters.nvim",
-    dependencies = "nvim-treesitter"
+    dependencies = "nvim-treesitter",
 }
 
 function M.config()

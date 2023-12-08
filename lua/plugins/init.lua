@@ -9,28 +9,6 @@ return {
             require("nvim-treesitter.configs").setup({})
         end,
     },
-    {
-        "p00f/nvim-ts-rainbow",
-        dependencies = "nvim-treesitter",
-    },
-
-    -- LSP plugins
-    {
-        "weilbith/nvim-code-action-menu",
-        cmd = "CodeActionMenu",
-    },
-    {
-        "kosayoda/nvim-lightbulb",
-        config = function()
-            require("nvim-lightbulb").setup({
-                autocmd = { enabled = true },
-                sign = {
-                    enabled = true,
-                    text = "🔥",
-                },
-            })
-        end,
-    },
 
     -- Autocompletion and snippets
     {
