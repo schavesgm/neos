@@ -12,7 +12,16 @@ function M.config()
     end
 
     treesitter.setup({
-        ensure_installed = { "lua", "vim", "python", "markdown", "markdown_inline", "regex" },
+        ensure_installed = {
+            "c",
+            "lua",
+            "vim",
+            "vimdoc",
+            "python",
+            "markdown",
+            "markdown_inline",
+            "regex",
+        },
         sync_install = true,
         auto_install = true,
 
@@ -28,17 +37,21 @@ function M.config()
             enable = true,
         },
 
-        -- External modules
-        rainbow = {
-            enable = true,
-            extended_mode = true,
-            max_file_lines = 1000,
-        },
-
+        -- Autopairing module
         autopairs = {
             enable = true,
         },
     })
+
+    local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+    parser_config.nu = {
+        install_info = {
+            url = "https://github.com/nushell/tree-sitter-nu",
+            files = { "src/parser.c" },
+            branch = "main",
+        },
+        filetype = "nu",
+    }
 end
 
 return M
