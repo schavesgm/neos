@@ -110,4 +110,22 @@ return {
             },
         },
     },
+    WebDevDefaults = {
+        {
+            event = "FileType",
+            opts = {
+                pattern = { "javascript", "css" },
+                command = "setlocal tabstop=2 shiftwidth=2 softtabstop=2",
+            },
+        },
+    },
+    NorgDefaults = {
+        {
+            event = "FileType",
+            opts = {
+                pattern = { "norg" },
+                command = "setlocal tabstop=2 shiftwidth=2 softtabstop=2",
+            },
+        },
+    },
 }
