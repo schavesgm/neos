@@ -1,2 +1,5 @@
 # Ignore lazy-lock.json file
 lazy-lock.json
+
+# Ignore the spell folder
+spell
