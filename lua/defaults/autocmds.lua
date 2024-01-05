@@ -110,6 +110,15 @@ return {
             },
         },
     },
+    RustDefaults = {
+        {
+            event = "FileType",
+            opts = {
+                pattern = { "rust" },
+                command = "set makeprg=cargo\\ run",
+            },
+        },
+    },
     WebDevDefaults = {
         {
             event = "FileType",
