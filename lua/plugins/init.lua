@@ -2,6 +2,10 @@
 return {
     -- Treesitter plugins
     {
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        dependencies = "nvim-treesitter/nvim-treesitter",
+    },
+    {
         "nvim-treesitter/playground",
         dependencies = "nvim-treesitter/nvim-treesitter",
         cmd = "TSPlaygroundToggle",

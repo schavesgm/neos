@@ -41,6 +41,20 @@ function M.config()
         autopairs = {
             enable = true,
         },
+
+        -- Textobjects module
+        textobjects = {
+            select = {
+                enable = true,
+                lookahead = true,
+                keymaps = {
+                    ["ia"] = "@parameter.inner",
+                    ["aa"] = "@parameter.outer",
+                    ["ic"] = "@comment.inner",
+                    ["ac"] = "@comment.outer",
+                },
+            },
+        },
     })
 
     local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
