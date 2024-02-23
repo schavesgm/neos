@@ -25,3 +25,9 @@
         >
     </a>
 </p>
+
+`neos` is a simple, extensible and highly-opinionated `neovim` configuration. The configuration
+comes bundled with [`TreeSitter`](https://github.com/nvim-treesitter/nvim-treesitter) integration,
+autocompletion, LSP integration and more. The configuration employs
+[`LazyNvim`](https://github.com/folke/lazy.nvim) as the package manager and
+[`MasonNvim`](https://github.com/williamboman/mason.nvim) as the LSP installer.
