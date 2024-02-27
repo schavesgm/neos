@@ -15,7 +15,6 @@ function M.config()
             none_ls.builtins.formatting.stylua,
 
             -- Filetype: Python
-            none_ls.builtins.diagnostics.ruff,
             none_ls.builtins.diagnostics.mypy.with({
                 extra_args = {
                     "--show-column-numbers",
