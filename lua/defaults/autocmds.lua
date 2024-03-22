@@ -136,5 +136,16 @@ return {
                 command = "setlocal tabstop=2 shiftwidth=2 softtabstop=2",
             },
         },
+        {
+            event = "FileType",
+            opts = {
+                pattern = { "norg" },
+                callback = function()
+                    if vim.fn.exists(":IBLDisable") > 0 then
+                        vim.cmd("IBLDisable")
+                    end
+                end,
+            },
+        },
     },
 }
