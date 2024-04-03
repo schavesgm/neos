@@ -1,5 +1,12 @@
 ---Module containing all plugin definitions
 return {
+    -- LuaRocks
+    {
+        "vhyrro/luarocks.nvim",
+        priority = 1000,
+        config = true,
+    },
+
     -- Treesitter plugins
     {
         "nvim-treesitter/nvim-treesitter-textobjects",
