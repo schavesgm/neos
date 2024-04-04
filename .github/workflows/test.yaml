@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: 📜 Checkout configuration
         uses: actions/checkout@v3
+      - name: Install Lua dependencies
+        run: sudo apt-get install liblua5.1-0-dev lua5.1
       - name: Install NeoVim
         uses: AnimMouse/setup-appimage@v1
         with:
