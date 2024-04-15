@@ -27,6 +27,9 @@ function M.config()
             end
         end,
     })
+
+    -- Extend gitcommit to NeogitCommitMessage
+    luasnip.filetype_extend("NeogitCommitMessage", { "gitcommit" })
 end
 
 return M
