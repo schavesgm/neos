@@ -13,10 +13,9 @@ end
 
 local entries = {
     snippets.s("code", format("`{}`", { snippets.i(1, "your_code") })),
-    snippets.s("WIP", format("WIP: {}", { snippets.i(1, "message") })),
 }
 
-for _, scope in ipairs({ "rebase", "fixup" }) do
+for _, scope in ipairs({ "rebase", "fixup", "WIP" }) do
     entries[#entries + 1] = generate_new_commit_message(scope)
 end
 
