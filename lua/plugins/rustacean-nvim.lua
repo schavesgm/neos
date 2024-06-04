@@ -2,19 +2,10 @@ local M = {
     "mrcjkb/rustaceanvim",
     version = "^3",
     ft = { "rust" },
-    dependencies = {
-        {
-            "lvimuser/lsp-inlayhints.nvim",
-            opts = {},
-        },
-    },
 }
 
 function M.config()
     vim.g.rustaceanvim = {
-        inlay_hints = {
-            highlight = "NonText",
-        },
         tools = {
             hover_actions = {
                 auto_focus = false,
