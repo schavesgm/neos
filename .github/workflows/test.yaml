@@ -2,7 +2,7 @@ name: 🧪 Test code
 on: push
 
 env:
-  MINIMUM_VERSION: 0.9.0
+  MINIMUM_VERSION: 0.10.0
 
 jobs:
   get-nvim-releases:

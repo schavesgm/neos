@@ -2,7 +2,7 @@
 local M = {}
 
 -- Minimum neovim version supported by the configuration
-local MINIMUM_NVIM_VERSION = "0.9"
+local MINIMUM_NVIM_VERSION = "0.10"
 
 ---Assert the NeoVim configuration is greater than a pre-defined value
 local function _assert_miminum_nvim_version()
