@@ -4,6 +4,9 @@ local M = {
     config = function()
         require("lsp")
     end,
+    opts = {
+        inlay_hints = { enabled = true },
+    },
 }
 
 return M
