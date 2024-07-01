@@ -10,15 +10,12 @@ if not mason_lspconfig then
     return
 end
 
----Function to be called when attaching
+---Function to be called when attaching to a buffer
 local function on_attach(client, bufnr)
     -- On attach function to attach some highlighting and keymaps
     if client.name == "tsserver" then
         client.server_capabilities.document_formatting = false
     end
-
-    -- Enable the inlay-hints
-    vim.lsp.inlay_hint.enable(true)
 
     -- Set some required functionalities on attach
     require("lsp.utils").lsp_highlight_document(client)
