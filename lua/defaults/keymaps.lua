@@ -94,6 +94,9 @@ return {
         -- Better indenting
         ["<"] = "<gv",
         [">"] = ">gv",
+
+        -- Clipboard copy
+        ["<leader>y"] = "\"+y"
     },
 
     -- Visual block mode mappings
