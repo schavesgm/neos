@@ -13,9 +13,6 @@ function M.config()
         },
         server = {
             on_attach = function(client, bufnr)
-                require("lsp-inlayhints").on_attach(client, bufnr)
-
-                -- Set some required functionalities on attach
                 require("lsp.utils").lsp_highlight_document(client)
                 require("lsp.utils").lsp_keymaps(bufnr)
             end,
