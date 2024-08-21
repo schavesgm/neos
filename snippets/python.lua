@@ -8,6 +8,17 @@ local function generate_code_link_snippet(code_encoding)
     )
 end
 
+--- str; Constant defining the snippet for an entry point in a Python script
+local ENTRY_POINT = [[
+def main() -> None:
+    """Entry point of the script."""
+    {}
+
+
+if __name__ == "__main__":
+    main()
+]]
+
 local entries = {
     snippets.s("sphcode", format("``{}``", { snippets.i(1, "default") })),
     snippets.s(
@@ -17,6 +28,7 @@ local entries = {
             snippets.i(2, "link_url"),
         })
     ),
+    snippets.s("entry_point", format(ENTRY_POINT, {snippets.i(1, "function_body")})),
 }
 
 local all_code_encodings = { "mod", "func", "data", "const", "class", "meth", "attr", "exc", "obj" }
