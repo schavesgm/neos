@@ -2,8 +2,8 @@
 ---@type table<string, any>
 local all_opened_timed_callbacks = {}
 
----@type number
-local THREE_MINUTES = 3
+---@type number Elapsed time between callbacks. In minutes.
+local ELAPSED_MINUTES = 0.1
 
 ---Wrapper around callback function that generates a timed call
 ---@param callback function #Callback function to wrap
@@ -12,11 +12,11 @@ local THREE_MINUTES = 3
 ---@param identifier string #String identifier for the wrapped callback
 ---@return function #Callback function wrapped on a timed loop
 local function start_timed_callback(callback, start, every, identifier)
-    local bufnr = vim.api.nvim_buf_get_name(0)
-    local timers_key = string.format("%s_%s", identifier, bufnr)
     return function()
+        local buffer_name = vim.api.nvim_buf_get_name(0)
+        local timers_key = string.format("%s_%s", identifier, buffer_name)
         local lambda = vim.schedule_wrap(function()
-            callback(bufnr)
+            callback(buffer_name)
         end)
         all_opened_timed_callbacks[timers_key] = vim.loop.new_timer()
         all_opened_timed_callbacks[timers_key]:start(start, every, lambda)
@@ -91,11 +91,11 @@ return {
             opts = {
                 pattern = { "*.tex", "*.md", "*.norg", "*.rst" },
                 callback = start_timed_callback(
-                    function(bufnr)
-                        vim.cmd(":w " .. bufnr)
+                    function(buffer_name)
+                        vim.cmd(":w " .. buffer_name)
                     end,
-                    minutes_to_miliseconds(THREE_MINUTES),
-                    minutes_to_miliseconds(THREE_MINUTES),
+                    minutes_to_miliseconds(ELAPSED_MINUTES),
+                    minutes_to_miliseconds(ELAPSED_MINUTES),
                     "markup_autosave"
                 ),
             },
@@ -105,7 +105,7 @@ return {
             opts = {
                 pattern = { "*.tex", "*.md", "*.norg", "*.rst" },
                 callback = function()
-                    end_timed_callback("markup_autsave")
+                    end_timed_callback("markup_autosave")
                 end,
             },
         },
