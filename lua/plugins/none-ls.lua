@@ -23,6 +23,9 @@ function M.config()
                     "--ignore-missing-imports",
                 },
             }),
+
+            -- Filetype: Markdown, YAML, TOML...
+            none_ls.builtins.formatting.prettier,
         },
     })
 end
