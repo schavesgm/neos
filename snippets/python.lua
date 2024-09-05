@@ -28,7 +28,7 @@ local entries = {
             snippets.i(2, "link_url"),
         })
     ),
-    snippets.s("entry_point", format(ENTRY_POINT, {snippets.i(1, "function_body")})),
+    snippets.s("entry_point", format(ENTRY_POINT, { snippets.i(1, "function_body") })),
 }
 
 local all_code_encodings = { "mod", "func", "data", "const", "class", "meth", "attr", "exc", "obj" }

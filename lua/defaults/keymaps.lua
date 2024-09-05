@@ -96,7 +96,7 @@ return {
         [">"] = ">gv",
 
         -- Clipboard copy
-        ["<leader>y"] = "\"+y"
+        ["<leader>y"] = '"+y',
     },
 
     -- Visual block mode mappings
