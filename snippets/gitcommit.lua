@@ -1,10 +1,29 @@
 local snippets = require("luasnip")
 local format = require("luasnip.extras.fmt").fmt
 
-local function generate_new_commit_message(scope)
+---Table containing some commit scopes and their emojis
+---@type table<number, table<string, string>>
+local git_messages = {
+    { type = "feat", emoji = "✨" },
+    { type = "refactor", emoji = "♻️" },
+    { type = "build", emoji = "🏗️" },
+    { type = "perf", emoji = "⚡️" },
+    { type = "fix", emoji = "🐛" },
+    { type = "WIP", emoji = "" },
+}
+
+---Generate a new commit message type to use in gitcommit
+---@param commit_type string Commit type
+---@param emoji string Emoji used in the scope declaration.
+local function generate_new_commit_message(commit_type, emoji)
+    local message = string.format(
+        "%s({})%s: {}",
+        commit_type,
+        emoji == "" and "" or string.format(" %s", emoji)
+    )
     return snippets.s(
-        scope,
-        format(string.format("%s({}): {}", scope), {
+        commit_type,
+        format(message, {
             snippets.i(1, "scope"),
             snippets.i(2, "message"),
         })
@@ -13,10 +32,11 @@ end
 
 local entries = {
     snippets.s("code", format("`{}`", { snippets.i(1, "your_code") })),
+    snippets.s("link", format("[{}]({})", { snippets.i(1, "name"), snippets.i(2, "reference") })),
 }
 
-for _, scope in ipairs({ "rebase", "fixup", "WIP" }) do
-    entries[#entries + 1] = generate_new_commit_message(scope)
+for _, entry in ipairs(git_messages) do
+    entries[#entries + 1] = generate_new_commit_message(entry.type, entry.emoji)
 end
 
 return entries
