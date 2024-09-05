@@ -21,6 +21,7 @@ function M.config()
             "markdown",
             "markdown_inline",
             "regex",
+            "latex",
         },
         sync_install = true,
         auto_install = true,
