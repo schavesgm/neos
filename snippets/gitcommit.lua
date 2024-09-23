@@ -9,6 +9,7 @@ local git_messages = {
     { type = "build", emoji = "🏗️" },
     { type = "perf", emoji = "⚡️" },
     { type = "fix", emoji = "🐛" },
+    { type = "docs", emoji = "📝" },
     { type = "WIP", emoji = "" },
 }
 
@@ -16,11 +17,7 @@ local git_messages = {
 ---@param commit_type string Commit type
 ---@param emoji string Emoji used in the scope declaration.
 local function generate_new_commit_message(commit_type, emoji)
-    local message = string.format(
-        "%s({})%s: {}",
-        commit_type,
-        emoji == "" and "" or string.format(" %s", emoji)
-    )
+    local message = string.format("%s({}): %s {}", commit_type, emoji)
     return snippets.s(
         commit_type,
         format(message, {
