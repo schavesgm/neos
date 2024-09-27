@@ -31,7 +31,7 @@ local entries = {
     snippets.s("entry_point", format(ENTRY_POINT, { snippets.i(1, "function_body") })),
 }
 
-local all_code_encodings = { "mod", "func", "data", "const", "class", "meth", "attr", "exc", "obj" }
+local all_code_encodings = { "mod", "func", "data", "const", "class", "math", "attr", "exc", "obj" }
 for _, code_encoding in ipairs(all_code_encodings) do
     entries[#entries + 1] = generate_code_link_snippet(code_encoding)
 end
