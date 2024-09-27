@@ -1,9 +1,6 @@
 ---Table containing all opened timed_callbacks
 ---@type table<string, any>
-local all_opened_timed_callbacks = {}
-
----@type number Elapsed time between callbacks. In minutes.
-local ELAPSED_MINUTES = 0.1
+local TIMED_CALLBACKS = {}
 
 ---Wrapper around callback function that generates a timed call
 ---@param callback function #Callback function to wrap
@@ -18,8 +15,8 @@ local function start_timed_callback(callback, start, every, identifier)
         local lambda = vim.schedule_wrap(function()
             callback(buffer_name)
         end)
-        all_opened_timed_callbacks[timers_key] = vim.loop.new_timer()
-        all_opened_timed_callbacks[timers_key]:start(start, every, lambda)
+        TIMED_CALLBACKS[timers_key] = vim.loop.new_timer()
+        TIMED_CALLBACKS[timers_key]:start(start, every, lambda)
     end
 end
 
@@ -28,9 +25,9 @@ end
 local function end_timed_callback(identifier)
     local timers_key = string.format("%s_%s", identifier, vim.api.nvim_buf_get_name(0))
     -- If the timer does exist, then close it
-    if all_opened_timed_callbacks[timers_key] ~= nil then
-        all_opened_timed_callbacks[timers_key]:close()
-        all_opened_timed_callbacks[timers_key] = nil
+    if TIMED_CALLBACKS[timers_key] ~= nil then
+        TIMED_CALLBACKS[timers_key]:close()
+        TIMED_CALLBACKS[timers_key] = nil
     end
 end
 
@@ -41,9 +38,40 @@ local function minutes_to_miliseconds(minutes)
     return minutes * 60 * 1000
 end
 
+---Create a timed callback autocommand for a given identifier on "BufEnter" and "BufLeave"
+---@param callback function Function to use in the callback operation
+---@param identifier string Identifier for the callback operation
+---@param minutes number Minutes to elapse between callbacks
+---@param options table Optional table adding options to the events
+local function _add_timed_autocommand(callback, identifier, minutes, options)
+    local miliseconds = minutes_to_miliseconds(minutes)
+    local options_enter = vim.tbl_extend(
+        "error",
+        { callback = start_timed_callback(callback, miliseconds, miliseconds, identifier) },
+        options
+    )
+    local options_exit = vim.tbl_extend("error", {
+        callback = function()
+            end_timed_callback(identifier)
+        end,
+    }, options)
+    return {
+        { event = "BufEnter", opts = options_enter },
+        { event = "BufLeave", opts = options_exit },
+    }
+end
+
+---Try linting the code using "nvim-lint"
+local function _lint()
+    local is_present, lint = pcall(require, "lint")
+    if is_present then
+        lint.try_lint()
+    end
+end
+
 -- Table containing all autogroups/autocommands definitions
 return {
-    BaseDefaults = {
+    base = {
         {
             event = "BufRead",
             opts = {
@@ -53,7 +81,7 @@ return {
         },
         { event = "VimLeave", opts = { pattern = "*", command = "wshada!" } },
     },
-    TerminalDefaults = {
+    terminal = {
         {
             event = "TermOpen",
             opts = {
@@ -78,39 +106,32 @@ return {
             opts = { pattern = "*", command = [[setlocal spell!]] },
         },
     },
-    MarkupDefaults = {
+    lint = vim.tbl_extend(
+        "error",
+        _add_timed_autocommand(_lint, "lint", 0.1, {}),
+        { event = "BufWritePost", opts = { callback = _lint } }
+    ),
+    markup = vim.tbl_extend(
+        "error",
+        _add_timed_autocommand(
+            function(buffer_name)
+                vim.cmd(":w " .. buffer_name)
+            end,
+            "markup_autosave",
+            3,
+            {
+                pattern = { "*.tex", "*.txt", "*.md", "*.norg", "*.rst" },
+            }
+        ),
         {
             event = { "BufEnter", "WinEnter" },
             opts = {
                 pattern = { "*.tex", "*.txt", "*.md", "*.norg", "*.rst" },
                 command = [[setlocal textwidth=100 colorcolumn=+1]],
             },
-        },
-        {
-            event = "BufEnter",
-            opts = {
-                pattern = { "*.tex", "*.md", "*.norg", "*.rst" },
-                callback = start_timed_callback(
-                    function(buffer_name)
-                        vim.cmd(":w " .. buffer_name)
-                    end,
-                    minutes_to_miliseconds(ELAPSED_MINUTES),
-                    minutes_to_miliseconds(ELAPSED_MINUTES),
-                    "markup_autosave"
-                ),
-            },
-        },
-        {
-            event = "BufLeave",
-            opts = {
-                pattern = { "*.tex", "*.md", "*.norg", "*.rst" },
-                callback = function()
-                    end_timed_callback("markup_autosave")
-                end,
-            },
-        },
-    },
-    RustDefaults = {
+        }
+    ),
+    rust = {
         {
             event = "FileType",
             opts = {
@@ -119,16 +140,7 @@ return {
             },
         },
     },
-    WebDevDefaults = {
-        {
-            event = "FileType",
-            opts = {
-                pattern = { "javascript", "css" },
-                command = "setlocal tabstop=2 shiftwidth=2 softtabstop=2",
-            },
-        },
-    },
-    NorgDefaults = {
+    norg = {
         {
             event = "FileType",
             opts = {
