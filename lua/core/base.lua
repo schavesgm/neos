@@ -26,4 +26,17 @@ function M.set_hl(namespace, name, bg_colour, fg_colour, opts_table)
     vim.api.nvim_set_hl(namespace, name, values_table)
 end
 
+---Append an element to an array-like table in the last position
+---@param table table Table to extend
+---@param entry table Entry to append to the table
+---@return table Table with appended entries
+function M.tbl_append(table, entry)
+    local new_table = {}
+    for _, old_entry in ipairs(table) do
+        new_table[#new_table + 1] = old_entry
+    end
+    new_table[#new_table + 1] = entry
+    return new_table
+end
+
 return M
