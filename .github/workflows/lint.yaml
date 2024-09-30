@@ -5,17 +5,17 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - name: 📜 Checkout configuration
+      - name: "📜 Checkout configuration"
         uses: actions/checkout@v3
-      - name: ⚙️ Apply pre-commit
+      - name: "Apply pre-commit formatting"
         uses: pre-commit/action@v3.0.0
-      - name: ⚙️ Apply formater Stylua
+      - name: "Apply stylua formatting"
         uses: JohnnyMorganz/stylua-action@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           version: latest
           args: --check .
-      - name: ⚙️ Apply linter Luacheck
+      - name: "Apply luacheck linting"
         uses: lunarmodules/luacheck@v1
         with:
           args: ". --globals vim --max-code-line-length 100 --no-self"
