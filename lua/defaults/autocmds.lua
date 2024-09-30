@@ -113,11 +113,16 @@ return {
         { event = "BufWritePost", opts = { callback = _lint } }
     ),
     markup = tbl_append(
-        _add_timed_autocommand(function(buffer_name)
-            vim.cmd(":w " .. buffer_name)
-        end, "markup_autosave", 0.1, {
-            pattern = { "*.tex", "*.txt", "*.md", "*.norg", "*.rst" },
-        }),
+        _add_timed_autocommand(
+            function(buffer_name)
+                vim.cmd(":w " .. buffer_name)
+            end,
+            "markup_autosave",
+            0.1,
+            {
+                pattern = { "*.tex", "*.txt", "*.md", "*.norg", "*.rst" },
+            }
+        ),
         {
             event = { "BufEnter", "WinEnter" },
             opts = {
