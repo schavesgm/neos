@@ -1,3 +1,5 @@
+local tbl_append = require("core.base").tbl_append
+
 ---Table containing all opened timed_callbacks
 ---@type table<string, any>
 local TIMED_CALLBACKS = {}
@@ -47,14 +49,14 @@ local function _add_timed_autocommand(callback, identifier, minutes, options)
     local miliseconds = minutes_to_miliseconds(minutes)
     local options_enter = vim.tbl_extend(
         "error",
-        { callback = start_timed_callback(callback, miliseconds, miliseconds, identifier) },
-        options
+        options,
+        { callback = start_timed_callback(callback, miliseconds, miliseconds, identifier) }
     )
-    local options_exit = vim.tbl_extend("error", {
+    local options_exit = vim.tbl_extend("error", options, {
         callback = function()
             end_timed_callback(identifier)
         end,
-    }, options)
+    })
     return {
         { event = "BufEnter", opts = options_enter },
         { event = "BufLeave", opts = options_exit },
@@ -106,23 +108,16 @@ return {
             opts = { pattern = "*", command = [[setlocal spell!]] },
         },
     },
-    lint = vim.tbl_extend(
-        "error",
+    lint = tbl_append(
         _add_timed_autocommand(_lint, "lint", 0.1, {}),
         { event = "BufWritePost", opts = { callback = _lint } }
     ),
-    markup = vim.tbl_extend(
-        "error",
-        _add_timed_autocommand(
-            function(buffer_name)
-                vim.cmd(":w " .. buffer_name)
-            end,
-            "markup_autosave",
-            3,
-            {
-                pattern = { "*.tex", "*.txt", "*.md", "*.norg", "*.rst" },
-            }
-        ),
+    markup = tbl_append(
+        _add_timed_autocommand(function(buffer_name)
+            vim.cmd(":w " .. buffer_name)
+        end, "markup_autosave", 0.1, {
+            pattern = { "*.tex", "*.txt", "*.md", "*.norg", "*.rst" },
+        }),
         {
             event = { "BufEnter", "WinEnter" },
             opts = {
