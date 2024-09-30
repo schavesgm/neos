@@ -1,8 +1,5 @@
-name: 🚀 Lint code
+name: 🚀 Lint
 on: push
-
-env:
-  MINIMUM_VERSION: 0.9.0
 
 jobs:
   lint:
@@ -21,4 +18,4 @@ jobs:
       - name: ⚙️ Apply linter Luacheck
         uses: lunarmodules/luacheck@v1
         with:
-          args: . --globals vim --max-code-line-length 100 --no-self
+          args: ". --globals vim --max-code-line-length 100 --no-self"
