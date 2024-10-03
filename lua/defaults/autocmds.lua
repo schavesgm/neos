@@ -118,7 +118,7 @@ return {
                 vim.cmd(":w " .. buffer_name)
             end,
             "markup_autosave",
-            0.1,
+            3.0,
             {
                 pattern = { "*.tex", "*.txt", "*.md", "*.norg", "*.rst" },
             }
