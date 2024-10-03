@@ -50,4 +50,9 @@ return {
         "kdheepak/cmp-latex-symbols",
         dependencies = "LuaSnip",
     },
+
+    -- Others
+    {
+        "mechatroner/rainbow_csv",
+    }
 }
