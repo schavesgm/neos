@@ -54,5 +54,5 @@ return {
     -- Others
     {
         "mechatroner/rainbow_csv",
-    }
+    },
 }

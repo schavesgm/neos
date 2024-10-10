@@ -16,8 +16,7 @@ function M.config()
     }
 
     -- Setup some linter arguments
-    local mypy = require("lint").linters
-    mypy.args = {
+    require("lint").linters.mypy.args = {
         "--show-column-numbers",
         "--disallow-untyped-defs",
         "--check-untyped-defs",
