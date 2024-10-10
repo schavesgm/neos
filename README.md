@@ -17,13 +17,6 @@
             style="max-width:100%;"
         >
     </a>
-    <a href="https://github.com/schavesgm/neos/actions/workflows/test.yaml">
-        <img
-            src="https://github.com/schavesgm/neos/actions/workflows/test.yaml/badge.svg"
-            alt="🧪 Test code"
-            style="max-width:100%;"
-        >
-    </a>
 </p>
 
 `neos` is a simple, extensible and highly-opinionated `neovim` configuration. The configuration
