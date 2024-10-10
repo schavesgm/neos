@@ -41,6 +41,11 @@ function M.config()
         return
     end
 
+    --- Only setup the kanagawa colour-scheme if its selected
+    if _G.neos.colourscheme ~= "kanagawa" then
+        return
+    end
+
     -- Setup kanagawa module
     kanagawa.setup({ theme = "wave" })
 end

@@ -1,5 +1,10 @@
 ---Module containing all plugin definitions
 return {
+    -- Import the colour-scheme sub-folder
+    {
+        import = "plugins.colourschemes"
+    },
+
     -- LuaRocks
     {
         "vhyrro/luarocks.nvim",
